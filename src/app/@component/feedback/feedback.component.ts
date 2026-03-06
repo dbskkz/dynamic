@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import { MatTableModule} from '@angular/material/table';
 import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-feedback',
-  imports: [MatIconModule,FormsModule,MatTableModule,CommonModule],
+  imports: [MatIconModule,FormsModule,MatTableModule,CommonModule,MatButtonModule],
   templateUrl: './feedback.component.html',
   styleUrl: './feedback.component.scss'
 })
