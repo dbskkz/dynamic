@@ -1,0 +1,109 @@
+<p>back works!</p>
+<div class="page">
+  <div>
+    <div class="seach">
+        <mat-icon aria-hidden="false" fontIcon="search" class="icon"></mat-icon>
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="關鍵字" (keyup)="gettext($event)" [(ngModel)]="inputDate">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <input matInput [matDatepicker]="startPicker" placeholder="從哪天開始" [max]="maxDate"
+          [(ngModel)]="minDate" (ngModelChange)="onDateChange()">
+          <mat-datepicker-toggle matSuffix [for]="startPicker">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <input matInput [matDatepicker]="endpicker" placeholder="在哪天結束"
+          [min]="minDate" [(ngModel)]="maxDate"  (ngModelChange)="onDateChange()">
+          <mat-datepicker-toggle matSuffix [for]="endpicker">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #endpicker></mat-datepicker>
+        </mat-form-field>
+        <button mat-stroked-button (click)="reset()"> 清除</button>
+    </div>
+
+    @if(isLoggedIn==false){
+    <mat-icon aria-hidden="false" fontIcon="login" (click)="login()"></mat-icon>
+    }
+    @else{
+      <mat-icon aria-hidden="false" fontIcon="add" (click)="create()"></mat-icon>
+      <mat-icon aria-hidden="false" fontIcon="logout" (click)="logout()"></mat-icon>
+    }
+
+
+  <div class="table">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef (click)="orderbyname($event)" class="th"> Name </th>
+        <td mat-cell *matCellDef="let element" (click)="goToFill()"
+          [style.cursor]="element.fettle === '進行中' ? 'pointer' : 'default'"
+          [style.color]="element.fettle === '進行中' ? 'blue' : 'gray'"> {{element.name}}
+        </td>
+      </ng-container>
+
+          <!-- Weight Column -->
+      <ng-container matColumnDef="Starday">
+        <th mat-header-cell *matHeaderCellDef (click)="orderbyDate($event)" class="th"> 開始時間 </th>
+        <td mat-cell *matCellDef="let element"> {{element.Starday|date:'yyyy-MM-dd'}} </td>
+      </ng-container>
+
+          <!-- 再切一列，改成開始日期和結束日期 -->
+      <ng-container matColumnDef="Endday">
+        <th mat-header-cell *matHeaderCellDef (click)="orderbyDate($event)" class="th"> 結束時間 </th>
+        <td mat-cell *matCellDef="let element"> {{element.Endday|date:'yyyy-MM-dd'}} </td>
+      </ng-container>
+
+          <!-- Symbol Column -->
+      <ng-container matColumnDef="fettle">
+        <th mat-header-cell *matHeaderCellDef (click)="orderby($event)" class="th"> 狀態 </th>
+        <td mat-cell *matCellDef="let element"> {{element.fettle}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="view">
+        <th mat-header-cell *matHeaderCellDef class="th"> 查看 </th>
+        <td mat-cell *matCellDef="let element">
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+          <mat-button-toggle value="bold" (click)="toReview()">GO</mat-button-toggle>
+          </mat-button-toggle-group>
+        </td>
+      </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="Date">
+            <th mat-header-cell *matHeaderCellDef class="th"> 動作 </th>
+            <td mat-cell *matCellDef="let element">
+               @if(element.fettle === '未開始' || element.fettle === '未發布')
+                {
+                  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                  <mat-button-toggle value="bold" (click)="onEdit()">編輯</mat-button-toggle>
+                  <mat-button-toggle value="bold" (click)="Delete()">刪除</mat-button-toggle>
+                  </mat-button-toggle-group>
+                }
+                @else if(element.fettle === '已結束')
+                {
+                  <button mat-stroked-button (click)="goToResult()">查看結果</button>
+                }
+                @else
+                {
+                  <!-- 進行中：不顯示任何按鈕 -->
+                }
+
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="row"></tr>
+        </table>
+    </div>
+  </div>
+</div>

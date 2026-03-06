@@ -1,0 +1,85 @@
+<div class="flex">
+  <div class="text">
+      @for(item of dataSoure;track $index)
+      {
+        <h2>{{item.title}}</h2>
+        <div>
+          <p>{{item.preview}}</p>
+        </div>
+
+        <div>
+          @if(mode === 'confirm')
+          {
+            <p>姓名：{{fillerData.name}}</p>
+            <p>手機：{{fillerData.phone}}</p>
+            <p>E-mail：{{fillerData.email}}</p>
+          }
+          @else{
+            <label>姓名(必填):</label>
+            <input type="text" [(ngModel)]="fillerData.name"
+            [disabled]="mode==='preview'">
+            <br>
+            <label>手機:</label>
+            <input type="text" [(ngModel)]="fillerData.phone"
+            [disabled]="mode==='preview'">
+            <br>
+            <label>E-mail</label>
+            <input type="mail" [(ngModel)]="fillerData.email"
+            [disabled]="mode==='preview'">
+          }
+        </div>
+
+
+        @for(item of item.questions; track $index; let qi = $index)
+        {
+          <div class="rang">
+            <span>{{item.name}}</span>
+            <span *ngIf="item.required"> *</span>
+          </div>
+          <!-- <label for="">{{item.questions?.name}}</label> -->
+          @if(item.type == '單選題')
+          {
+            <mat-radio-group aria-label="Select an option"
+              [(ngModel)]="answers[qi]">
+            @for(option of item.options; track $index)
+            {
+              <mat-radio-button [name]="'q'+qi" [value]="option"
+              [disabled]="mode === 'preview' || mode === 'confirm'">{{option}}
+              </mat-radio-button>
+            }
+            </mat-radio-group>
+          }
+          @else if(item.type == '複選題')
+          {
+            @for(option of item.options; track $index)
+            {
+              <mat-checkbox class="example-margin"
+              [checked]="answers[qi]?.includes(option)"
+              (change)="onCheckChange($event, qi, option)"
+              [disabled]="mode==='preview'||mode==='confirm'">{{option}}
+              </mat-checkbox>
+            }
+          }
+          @else
+          {
+            <textarea class="textarea"
+              [(ngModel)]="answers[qi]"
+              [disabled]="mode==='preview'||mode==='confirm'"></textarea>
+          }
+        }
+      }
+      @if(mode !== 'preview')
+      {
+        @if(mode === 'fill')
+        {
+          <button mat-stroked-button (click)="back()">返回</button>
+          <button mat-stroked-button (click)="submit()">提交</button>
+        }
+        @else if(mode === 'confirm')
+        {
+          <button mat-stroked-button (click)="edit()">修改</button>
+          <button mat-stroked-button (click)="send()">確認提交</button>
+        }
+      }
+  </div>
+</div>

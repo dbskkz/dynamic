@@ -1,0 +1,48 @@
+table {
+  width: 100%;
+}
+
+.row{
+  &:hover{
+    background-color:rgb(197, 255, 255);
+  }
+}
+
+.seach{
+  align-items:baseline;
+  justify-content:center
+}
+
+.table{
+  width: 100%;
+  border: 2px rgb(101, 62, 62) solid;
+  border-radius: 10px;
+}
+.page{
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+}
+//th樣式(背景色)
+.th{
+  background-color: rgb(155, 198, 198) !important;
+}
+
+.example-button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 140px;
+}
+

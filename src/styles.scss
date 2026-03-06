@@ -1,0 +1,35 @@
+@use '@angular/material' as mat;
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.icon{
+  width: 50px !important;
+  height: 50px !important;
+  font-size: 40px !important;
+  position: relative;
+  top:25px !important;
+}
+
+
+html {
+  @include mat.theme((
+    color: (
+      theme-type: light,
+      primary: mat.$blue-palette,
+      tertiary: mat.$orange-palette,
+    )
+  ));
+}
+
+.bordline{
+  border: 2px rgb(167, 167, 167) solid;
+  border-radius: 5px;
+}
+.explain{
+  resize: none;
+  width: 56%;
+}
+body{
+  background-color: antiquewhite;
+}

@@ -1,0 +1,52 @@
+.textarea{
+  resize: none;
+  width: 100%;
+  height: clamp(20px, 100%, 80px);
+  font-size: larger;
+}
+.rang{
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 10%;
+}
+.text{
+  font-size: 150%;
+  height: 20%;
+}
+
+.flex{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url('/img/back-review.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-attachment: fixed;
+}
+
+.example-button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 140px;
+}
+
+//mat-radio
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+  margin-left: 16px;
+}
+//mat-check
+.example-margin {
+  margin: 0 12px;
+}
